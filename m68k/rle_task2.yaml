@@ -1,0 +1,24 @@
+name: rle_decompress_bytes_m68k
+limit: 5000
+memory_size: 0x2000
+memory_mapped_io:
+  0x80: [2, 67764224] 
+  0x84: []
+
+reports:
+
+  - name: Step-by-step
+    slice: all
+    view: |
+      PC:{pc} | Instr:{instruction}
+      D0:{D0:hex} D1:{D1:dec} D2:{D2:dec}
+      A0:{A0:hex} A2:{A2:hex} A7:{A7:hex}
+
+  - name: Result
+    slice: last
+    view: |
+      numio[0x80]: {io:0x80:dec}
+      numio[0x84]: {io:0x84:dec}
+    assert: |
+      numio[0x80]: [] >>> []
+      numio[0x84]: [] >>> [4,168430090]
